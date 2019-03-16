@@ -4,6 +4,7 @@ TODO:
 * [ ] remove flux since not needed
 * [ ] create user journey docs
 * [ ] figure out charts
+* [ ] fix / write tests
 
 ## Project setup
 ```

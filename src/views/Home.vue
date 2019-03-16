@@ -3,7 +3,7 @@
     <div class="filters">
       <div class="filter">
         <h4>HTTP Method</h4>
-        <select v-model="filters.http_method">
+        <select v-model="filters.http_method.value">
           <option>All</option>
           <option>post</option>
           <option>get</option>
@@ -11,12 +11,20 @@
       </div>
       <div class="filter">
         <h4>Response Code</h4>
-        <select v-model="filters.response_code">
+        <select v-model="filters.response_code.value">
           <option>All</option>
           <option>200</option>
           <option>401</option>
           <option>500</option>
         </select>
+      </div>
+      <div class="filter">
+        <h4>Consumer ID</h4>
+        <input v-model="filters.consumer_id.value" placeholder="All">
+      </div>
+      <div class="filter">
+        <h4>Service Name</h4>
+        <input v-model="filters.service_name.value" placeholder="All">
       </div>
     </div>
     <PingList v-bind:filters="filters"/>
@@ -34,10 +42,22 @@ export default {
   data: function() {
     return {
       filters: {
-        http_method: "All",
-        service_name: "All",
-        response_code: "All",
-        consumer_id: "All"
+        http_method: {
+          type: 'select',
+          value: "All"
+        },
+        service_name: {
+          type: 'text',
+          value: ''
+        },
+        response_code: {
+          type: 'select',
+          value: 'All'
+        },
+        consumer_id: {
+          type: 'text',
+          value: ''
+        }
       }
     };
   }

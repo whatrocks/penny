@@ -55,17 +55,26 @@ export default {
   },
   computed: {
     filteredPings: function() {
-      let activeFilters = Object.keys(this.filters).filter(f => {
-        return this.filters[f] !== "All";
+      const activeFilters = Object.keys(this.filters).filter(f => {
+        const currentFilter = this.filters[f];
+        return (
+          (currentFilter.type === "select" && currentFilter.value !== "All") ||
+          (currentFilter.type === "text" && currentFilter.value.length)
+        );
       });
       if (!activeFilters.length) {
         return this.pings;
       }
       let filteredData = data;
       activeFilters.forEach(filter => {
-        filteredData = filteredData.filter(
-          ping => ping[filter] === this.filters[filter]
-        );
+        filteredData = filteredData.filter(ping => {
+          if (this.filters[filter].type === "select") {
+            return ping[filter] === this.filters[filter].value;
+          } else {
+            // text filter
+            return ping[filter].includes(this.filters[filter].value);
+          }
+        });
       });
       return filteredData;
     }
