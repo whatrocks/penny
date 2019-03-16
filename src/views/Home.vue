@@ -66,10 +66,10 @@ export default {
   },
   methods: {
     reset: function(event) {
-      this.filters.http_method = 'All';
-      this.filters.service_name = '';
-      this.filters.response_code = 'All';
-      this.filters.consumer_id = '';
+      this.filters.http_method.value = 'All';
+      this.filters.service_name.value = '';
+      this.filters.response_code.value = 'All';
+      this.filters.consumer_id.value = '';
     }
   }
 };
