@@ -1,5 +1,10 @@
 # penny
 
+TODO:
+* [ ] remove flux since not needed
+* [ ] create user journey docs
+* [ ] figure out charts
+
 ## Project setup
 ```
 npm install
