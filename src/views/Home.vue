@@ -26,6 +26,9 @@
         <h4>Service Name</h4>
         <input v-model="filters.service_name.value" placeholder="All">
       </div>
+      <button v-on:click="reset">
+        Reset Filters
+      </button>
     </div>
     <PingList v-bind:filters="filters"/>
   </div>
@@ -60,6 +63,14 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    reset: function(event) {
+      this.filters.http_method = 'All';
+      this.filters.service_name = '';
+      this.filters.response_code = 'All';
+      this.filters.consumer_id = '';
+    }
   }
 };
 </script>
