@@ -6,6 +6,14 @@ TODO:
 * [ ] figure out charts
 * [ ] fix / write tests
 
+
+NOTES:
+
+converted to json
+```bash
+../node_modules/csvtojson/bin/csvtojson traffic.csv > converted.json
+```
+
 ## Project setup
 ```
 npm install

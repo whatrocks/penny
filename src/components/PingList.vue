@@ -1,9 +1,15 @@
 <template>
-  <ul>
-    <li v-for="ping in filteredPings" :key="ping.id">{{ping}}</li>
-  </ul>
+  <div>
+    <ul>
+      <li v-for="ping in filteredPings" :key="ping.id">{{ping}}</li>
+    </ul>
+    <highcharts :options="chartOptions"></highcharts>
+  </div>
 </template>
 <script>
+// import data from '@/data/traffic.json'
+import { Chart } from "highcharts-vue";
+import multiFilter from '@/utils/multiFilter.js';
 const data = [
   {
     id: 1,
@@ -40,6 +46,24 @@ const data = [
     consumer_id: "consumer_1049",
     latency_in_seconds: "6",
     response_code: "500"
+  },
+  {
+    id: 5,
+    request_time: "2017-01-02 00:00:07.900000",
+    service_name: "service_3828",
+    http_method: "get",
+    consumer_id: "consumer_1281",
+    latency_in_seconds: "2",
+    response_code: "200"
+  },
+  {
+    id: 6,
+    request_time: "2017-01-02 00:00:07.900000",
+    service_name: "service_3828",
+    http_method: "post",
+    consumer_id: "consumer_1281",
+    latency_in_seconds: "2",
+    response_code: "200"
   }
 ];
 
@@ -48,6 +72,9 @@ export default {
   props: {
     filters: Object
   },
+  components: {
+    highcharts: Chart
+  },
   data: function() {
     return {
       pings: data
@@ -55,28 +82,66 @@ export default {
   },
   computed: {
     filteredPings: function() {
-      const activeFilters = Object.keys(this.filters).filter(f => {
-        const currentFilter = this.filters[f];
-        return (
-          (currentFilter.type === "select" && currentFilter.value !== "All") ||
-          (currentFilter.type === "text" && currentFilter.value.length)
-        );
-      });
-      if (!activeFilters.length) {
-        return this.pings;
-      }
-      let filteredData = data;
-      activeFilters.forEach(filter => {
-        filteredData = filteredData.filter(ping => {
-          if (this.filters[filter].type === "select") {
-            return ping[filter] === this.filters[filter].value;
-          } else {
-            // text filter
-            return ping[filter].includes(this.filters[filter].value);
-          }
+      return multiFilter(this.filters, data);
+    },
+    chartOptions: function() {
+      const filteredData = multiFilter(this.filters, data);
+      const get = filteredData
+        .filter(p => p.http_method === "get")
+        .map(p => {
+          return {
+            x: new Date(p.request_time).getTime() / 1000,
+            y: parseFloat(p.latency_in_seconds)
+          };
         });
-      });
-      return filteredData;
+      const post = filteredData
+        .filter(p => p.http_method === "post")
+        .map(p => {
+          return {
+            x: new Date(p.request_time).getTime() / 1000,
+            y: parseFloat(p.latency_in_seconds)
+          };
+        });
+      return {
+        chart: {
+          type: "line"
+        },
+        title: {
+          text: ""
+        },
+        yAxis: {
+          title: {
+            text: "Latency"
+          },
+          min: 0
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          type: "datetime",
+          dateTimeLabelFormats: {
+            millisecond: "%e %b - %H:%M:%S",
+            second: "%e %b - %H:%M:%S",
+            minute: "%e %b - %H:%M:%S",
+            hour: "%e %b - %H:%M:%S",
+            day: "%e %b - %H:%M:%S"
+          },
+          title: {
+            text: "Date"
+          }
+        },
+        series: [
+          {
+            name: "GET",
+            data: get
+          },
+          {
+            name: "POST",
+            data: post
+          }
+        ]
+      };
     }
   }
 };

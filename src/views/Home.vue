@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>🕵️‍♀️ Penny</h1>
     <div class="filters">
       <div class="filter">
         <h4>HTTP Method</h4>

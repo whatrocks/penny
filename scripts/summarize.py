@@ -6,6 +6,7 @@ with open('traffic.csv') as csv_file:
     # skip header
     next(csv_reader)
 
+    # NOTE: This was for inspecting the data!
     service_names = set()
     consumers = set()
     status_codes = set()
@@ -16,6 +17,7 @@ with open('traffic.csv') as csv_file:
         methods.add(row[2])
         consumers.add(row[3])
         status_codes.add(row[5])
-
-    # use this to visually inspect results
     print(status_codes)
+
+
+    
