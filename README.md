@@ -38,6 +38,8 @@ Most notably, Penny is not currently set up for real-time monitoring (which is i
 
 Additionally, this back-end server should perform more of the data processing that is currently happening on the front-end (e.g. grouping traffic by service or by the minute). This will lighten the load on the front-end computation required to drive the Penny charting dashboard.
 
+Another suggested next step with more time is to further break down some of the frontend Vue components into even smaller reusable components (e.g. create a reusable `Graph` component that wraps the Highcharts component that comes with standard chart config that can be overwritten and modified).
+
 ## Project setup
 
 To run Penny locally, install and run the development mode:
