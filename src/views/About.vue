@@ -3,7 +3,7 @@
     <h5>🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.</h5>
     <br />
     <h4>Features</h4>
-    <FeatureList/>
+    <FeatureList />
     <br />
     <p>⚡⚡⚡</p>
     <br />

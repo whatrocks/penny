@@ -10,7 +10,7 @@
         <highcharts :options="latencyChartOptions"></highcharts>
       </div>
     </div>
-    <br>
+    <br />
     <div class="row">
       <div class="col">
         <h5>Errors per Minute</h5>
@@ -25,8 +25,8 @@
             @click="selectService(service)"
             :key="service.id"
           >
-            <b>{{service.name}}</b>
-            : {{service.avg.toFixed(4)}}
+            <b>{{ service.name }}</b>
+            : {{ service.avg.toFixed(4) }}
           </li>
         </ul>
       </div>
@@ -101,7 +101,7 @@ export default {
               if (event.xAxis != null) {
                 that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
               } else {
-                that.adjustZoom("", "")
+                that.adjustZoom("", "");
               }
             }
           }
@@ -166,7 +166,7 @@ export default {
               if (event.xAxis != null) {
                 that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
               } else {
-                that.adjustZoom("", "")
+                that.adjustZoom("", "");
               }
             }
           }
@@ -259,7 +259,7 @@ export default {
               if (event.xAxis != null) {
                 that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
               } else {
-                that.adjustZoom("", "")
+                that.adjustZoom("", "");
               }
             }
           }

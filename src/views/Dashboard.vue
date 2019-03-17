@@ -3,7 +3,11 @@
     <div class="filters form-row">
       <div class="form-group col">
         <label>HTTP Method</label>
-        <select class="form-control" v-model="filters.http_method.value" v-on:change="urlAdjust">
+        <select
+          class="form-control"
+          v-model="filters.http_method.value"
+          v-on:change="urlAdjust"
+        >
           <option>All</option>
           <option>post</option>
           <option>get</option>
@@ -11,7 +15,11 @@
       </div>
       <div class="form-group col">
         <label>Response Code</label>
-        <select class="form-control" v-model="filters.response_code.value" v-on:change="urlAdjust">
+        <select
+          class="form-control"
+          v-model="filters.response_code.value"
+          v-on:change="urlAdjust"
+        >
           <option>All</option>
           <option>200</option>
           <option>401</option>
@@ -20,11 +28,21 @@
       </div>
       <div class="form-group col">
         <label>Consumer ID</label>
-        <input class="form-control" v-model="filters.consumer_id.value" placeholder="All" v-on:change="urlAdjust">
+        <input
+          class="form-control"
+          v-model="filters.consumer_id.value"
+          placeholder="All"
+          v-on:change="urlAdjust"
+        />
       </div>
       <div class="form-group col">
         <label>Service Name</label>
-        <input class="form-control" v-model="filters.service_name.value" placeholder="All" v-on:change="urlAdjust">
+        <input
+          class="form-control"
+          v-model="filters.service_name.value"
+          placeholder="All"
+          v-on:change="urlAdjust"
+        />
       </div>
       <div class="form-group col">
         <label>Latency Greater Than</label>
@@ -33,7 +51,7 @@
           v-model="filters.latency_in_seconds.value"
           placeholder="Seconds"
           v-on:change="urlAdjust"
-        >
+        />
       </div>
       <div class="col">
         <button class="btn green" v-on:click="reset">Reset Filters</button>
@@ -49,7 +67,7 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from "lodash";
 import router from "@/router";
 import multiFilter from "@/utils/multiFilter.js";
 import TrafficOverview from "@/components/TrafficOverview.vue";
@@ -64,7 +82,7 @@ export default {
     if (Object.keys(this.$route.query).length) {
       _.forEach(this.$route.query, (value, key) => {
         this.filters[key].value = value;
-      })
+      });
     }
   },
   data: function() {
@@ -108,9 +126,12 @@ export default {
   },
   methods: {
     urlAdjust: function() {
-      const activeFilters = _.pickBy(this.filters, f => f.value && f.value !== 'All')
-      const query = _.mapValues(activeFilters, f => f.value)
-      router.push({ query })
+      const activeFilters = _.pickBy(
+        this.filters,
+        f => f.value && f.value !== "All"
+      );
+      const query = _.mapValues(activeFilters, f => f.value);
+      router.push({ query });
     },
     filterService: function(service) {
       this.filters.service_name.value = service;
