@@ -40,7 +40,7 @@ import _ from "lodash";
 import quantile from "@/utils/quantile.js";
 
 export default {
-  name: "PingList",
+  name: "TrafficOverview",
   props: {
     traffic: Array,
     filters: Object
@@ -51,6 +51,9 @@ export default {
   methods: {
     selectService: function(value) {
       this.$emit("selectservice", value.name);
+    },
+    adjustZoom: function(startTime, endTime) {
+      this.$emit("adjusttime", { startTime, endTime });
     }
   },
   computed: {
@@ -73,7 +76,7 @@ export default {
         if (a.avg < b.avg) return 1;
         return -1;
       });
-      return filteredServices.slice(0,10);
+      return filteredServices.slice(0, 10);
     },
     qpmChartOptions: function() {
       const groups = _.groupBy(this.traffic, function(ping) {
@@ -88,9 +91,20 @@ export default {
           y: value.length
         });
       });
+      const that = this;
       return {
         chart: {
-          type: "area"
+          type: "area",
+          zoomType: "x",
+          events: {
+            selection: function(event) {
+              if (event.xAxis != null) {
+                that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
+              } else {
+                that.adjustZoom("", "")
+              }
+            }
+          }
         },
         title: {
           text: ""

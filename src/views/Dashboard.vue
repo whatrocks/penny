@@ -38,20 +38,25 @@
         <button class="btn green" v-on:click="reset">Reset Filters</button>
       </div>
     </div>
-    <PingList v-on:selectservice="filterService" v-bind:filters="filters" v-bind:traffic="traffic"/>
+    <TrafficOverview
+      v-on:adjusttime="filterTimeRange"
+      v-on:selectservice="filterService"
+      v-bind:filters="filters"
+      v-bind:traffic="traffic"
+    />
   </div>
 </template>
 
 <script>
 import multiFilter from "@/utils/multiFilter.js";
-import PingList from "@/components/PingList.vue";
+import TrafficOverview from "@/components/TrafficOverview.vue";
 import rawTraffic from "@/data/traffic.json";
 const slicedTraffic = rawTraffic.slice(0, 200);
 
 export default {
   name: "dashboard",
   components: {
-    PingList
+    TrafficOverview
   },
   data: function() {
     return {
@@ -75,6 +80,14 @@ export default {
         latency_in_seconds: {
           type: "greater",
           value: ""
+        },
+        start_datetime: {
+          type: "datetime",
+          value: ""
+        },
+        end_datetime: {
+          type: "datetime",
+          value: ""
         }
       }
     };
@@ -88,12 +101,19 @@ export default {
     filterService: function(service) {
       this.filters.service_name.value = service;
     },
+    filterTimeRange: function({ startTime, endTime }) {
+      console.log("start: ", startTime, " ; end: ", endTime)
+      this.filters.start_datetime.value = startTime;
+      this.filters.end_datetime.value = endTime;
+    },
     reset: function() {
       this.filters.http_method.value = "All";
       this.filters.service_name.value = "";
       this.filters.response_code.value = "All";
       this.filters.consumer_id.value = "";
       this.filters.latency_in_seconds.value = "";
+      this.filters.start_datetime.value = "";
+      this.filters.end_datetime.value = "";
     }
   }
 };
