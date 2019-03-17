@@ -26,15 +26,12 @@ export default function(filters, data) {
           .format("DD/MM/YYYY HH:mm");
         const ts = new Date(moment(dt).valueOf()).getTime();
         if (filter === "start_datetime") {
-          console.log("ts: ", ts, filters[filter].value);
           return ts >= filters[filter].value;
         } else {
-          console.log("ts end: ", ts, filters[filter].value);
           return ts <= filters[filter].value;
         }
       } else {
         // greater than filter
-        console.log("ping(filter)", ping[filter]);
         return parseFloat(ping[filter]) >= parseFloat(filters[filter].value);
       }
     });

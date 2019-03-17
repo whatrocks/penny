@@ -3,9 +3,10 @@
 TODO:
 * [ ] create user journey docs
 * [ ] fix / write tests
-* [ ] append to url query string so it can be shared
-* [ ] drag to select the range
+* [x] append to url query string so it can be shared
+* [x] drag to select the range
 * [ ] improve hovers
+* [x] support more data
 
 https://docs.particular.net/samples/logging/prometheus-grafana/
 

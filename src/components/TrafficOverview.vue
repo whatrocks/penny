@@ -156,9 +156,20 @@ export default {
           y: _.countBy(value, p => p.response_code.startsWith("5")).true
         });
       });
+      const that = this;
       return {
         chart: {
-          type: "area"
+          type: "area",
+          zoomType: "x",
+          events: {
+            selection: function(event) {
+              if (event.xAxis != null) {
+                that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
+              } else {
+                that.adjustZoom("", "")
+              }
+            }
+          }
         },
         title: {
           text: ""
@@ -238,10 +249,20 @@ export default {
           y: parseFloat(sorted[sorted.length - 1].latency_in_seconds)
         });
       });
-
+      const that = this;
       return {
         chart: {
-          type: "line"
+          type: "line",
+          zoomType: "x",
+          events: {
+            selection: function(event) {
+              if (event.xAxis != null) {
+                that.adjustZoom(event.xAxis[0].min, event.xAxis[0].max);
+              } else {
+                that.adjustZoom("", "")
+              }
+            }
+          }
         },
         title: {
           text: ""
