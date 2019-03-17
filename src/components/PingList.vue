@@ -13,9 +13,14 @@
     <div class="row">
       <div class="col">
         <h5>Service Names</h5>
-        <!-- <ul class="list-group">
-          <li class="list-group-item" v-for="ping in filteredPings" :key="ping.id">{{ping}}</li>
-        </ul>-->
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            v-for="service in filteredServices"
+            @click="selectService(service)"
+            :key="service.id"
+          ><b>{{service.name}}</b>: {{service.avg.toFixed(4)}}</li>
+        </ul>
       </div>
       <div class="col">
         <h5>Consumer IDs</h5>
@@ -39,14 +44,36 @@ export default {
   components: {
     highcharts: Chart
   },
+  methods: {
+    selectService: function(value) {
+      this.$emit('selectservice', value.name)
+    }
+  },
   data: function() {
     return {
       pings: data
     };
   },
   computed: {
-    filteredPings: function() {
-      return multiFilter(this.filters, data);
+    filteredServices: function() {
+      const filteredData = multiFilter(this.filters, data);
+      let filteredServices = [];
+      const services = _.groupBy(filteredData, function(ping) {
+        return ping.service_name;
+      });
+      _.forEach(services, (value, key) => {
+        let avgLatency = _.mean(value.map(p => parseFloat(p.latency_in_seconds)))
+        filteredServices.push({
+          name: key,
+          avg: avgLatency
+        })
+      })
+      filteredServices = filteredServices.sort((a,b) => {
+        if (a.avg === b.avg) return 0;
+        if (a.avg < b.avg) return 1
+        return -1;
+      })
+      return filteredServices;
     },
     qpmChartOptions: function() {
       const filteredData = multiFilter(this.filters, data);

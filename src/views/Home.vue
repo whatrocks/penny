@@ -38,7 +38,7 @@
         <button class="btn green" v-on:click="reset">Reset Filters</button>
       </div>
     </div>
-    <PingList v-bind:filters="filters"/>
+    <PingList v-on:selectservice="filterService" v-bind:filters="filters"/>
   </div>
 </template>
 
@@ -77,6 +77,9 @@ export default {
     };
   },
   methods: {
+    filterService: function(service) {
+      this.filters.service_name.value = service;
+    },
     reset: function(event) {
       this.filters.http_method.value = "All";
       this.filters.service_name.value = "";
