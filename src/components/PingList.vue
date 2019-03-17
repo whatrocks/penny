@@ -50,12 +50,12 @@ export default {
     qpmChartOptions: function() {
       const filteredData = multiFilter(this.filters, data);
       const groups = _.groupBy(filteredData, function(ping) {
-        return moment(ping.request_time).format("DD/MM/YYYY HH:mm");
+        return moment(ping.request_time).startOf('minute').format("DD/MM/YYYY HH:mm");
       });
       const count = [];
       _.forEach(groups, function(value, key) {
         count.push({
-          x: new Date(key).getTime() / 1000,
+          x: new Date(moment(key).valueOf()).getTime(),
           y: value.length
         });
       });
@@ -99,14 +99,16 @@ export default {
       const filteredData = multiFilter(this.filters, data);
       const groups = _.groupBy(filteredData, function(ping) {
         return moment(ping.request_time).format("DD/MM/YYYY HH:mm");
+        // return moment(ping.request_time);
       });
       const average = [];
       const p90 = [];
       const min = [];
       const max = [];
       _.forEach(groups, function(value, key) {
+        const date = new Date(moment(key).valueOf()).getTime();
         average.push({
-          x: new Date(key).getTime() / 1000,
+          x: date,
           y: _.mean(value.map(p => parseFloat(p.latency_in_seconds)))
         });
         const sorted = value.sort((a, b) => {
@@ -115,15 +117,15 @@ export default {
           return 1;
         });
         p90.push({
-          x: new Date(key).getTime() / 1000,
+          x: date,
           y: Math.floor(sorted.length * 0.9) - 1
         });
         min.push({
-          x: new Date(key).getTime() / 1000,
+          x: date,
           y: parseFloat(sorted[0].latency_in_seconds)
         });
         max.push({
-          x: new Date(key).getTime() / 1000,
+          x: date,
           y: parseFloat(sorted[sorted.length - 1].latency_in_seconds)
         });
       });
