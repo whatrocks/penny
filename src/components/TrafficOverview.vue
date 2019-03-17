@@ -38,7 +38,6 @@ import { Chart } from "highcharts-vue";
 import moment from "moment";
 import _ from "lodash";
 import quantile from "@/utils/quantile.js";
-
 export default {
   name: "TrafficOverview",
   props: {
@@ -111,7 +110,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "QPM"
+            text: ""
           }
         },
         credits: {
@@ -176,7 +175,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "QPM"
+            text: ""
           }
         },
         credits: {
@@ -269,7 +268,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "QPM"
+            text: ""
           }
         },
         credits: {
