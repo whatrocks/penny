@@ -1,71 +1,15 @@
 <template>
   <div>
-    <!-- <ul>
-      <li v-for="ping in filteredPings" :key="ping.id">{{ping}}</li>
-    </ul> -->
     <highcharts :options="chartOptions"></highcharts>
+    <ul class="list-group">
+      <li class="list-group-item" v-for="ping in filteredPings" :key="ping.id">{{ping}}</li>
+    </ul>
   </div>
 </template>
 <script>
 import data from '@/data/sliced.json'
 import { Chart } from "highcharts-vue";
 import multiFilter from '@/utils/multiFilter.js';
-// const data = [
-//   {
-//     id: 1,
-//     request_time: "2017-01-01 00:00:03.850000",
-//     service_name: "service_4777",
-//     http_method: "post",
-//     consumer_id: "consumer_566",
-//     latency_in_seconds: "5.013062396901898",
-//     response_code: "401"
-//   },
-//   {
-//     id: 2,
-//     request_time: "2017-01-01 00:00:03.850000",
-//     service_name: "service_4724",
-//     http_method: "post",
-//     consumer_id: "consumer_72",
-//     latency_in_seconds: "6",
-//     response_code: "200"
-//   },
-//   {
-//     id: 3,
-//     request_time: "2017-01-01 00:00:07.900000",
-//     service_name: "service_3828",
-//     http_method: "get",
-//     consumer_id: "consumer_1281",
-//     latency_in_seconds: "0.9981994115938102",
-//     response_code: "200"
-//   },
-//   {
-//     id: 4,
-//     request_time: "2017-01-01 00:00:09.500000",
-//     service_name: "service_4010",
-//     http_method: "post",
-//     consumer_id: "consumer_1049",
-//     latency_in_seconds: "6",
-//     response_code: "500"
-//   },
-//   {
-//     id: 5,
-//     request_time: "2017-01-02 00:00:07.900000",
-//     service_name: "service_3828",
-//     http_method: "get",
-//     consumer_id: "consumer_1281",
-//     latency_in_seconds: "2",
-//     response_code: "200"
-//   },
-//   {
-//     id: 6,
-//     request_time: "2017-01-02 00:00:07.900000",
-//     service_name: "service_3828",
-//     http_method: "post",
-//     consumer_id: "consumer_1281",
-//     latency_in_seconds: "2",
-//     response_code: "200"
-//   }
-// ];
 
 export default {
   name: "PingList",

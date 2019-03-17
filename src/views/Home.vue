@@ -3,16 +3,16 @@
     <h1>🕵️‍♀️ Penny</h1>
     <div class="filters">
       <div class="filter">
-        <h4>HTTP Method</h4>
-        <select v-model="filters.http_method.value">
+        <h5>HTTP Method</h5>
+        <select class="form-control" v-model="filters.http_method.value">
           <option>All</option>
           <option>post</option>
           <option>get</option>
         </select>
       </div>
       <div class="filter">
-        <h4>Response Code</h4>
-        <select v-model="filters.response_code.value">
+        <h5>Response Code</h5>
+        <select class="form-control" v-model="filters.response_code.value">
           <option>All</option>
           <option>200</option>
           <option>401</option>
@@ -20,14 +20,14 @@
         </select>
       </div>
       <div class="filter">
-        <h4>Consumer ID</h4>
-        <input v-model="filters.consumer_id.value" placeholder="All">
+        <h5>Consumer ID</h5>
+        <input class="form-control" v-model="filters.consumer_id.value" placeholder="All">
       </div>
       <div class="filter">
-        <h4>Service Name</h4>
-        <input v-model="filters.service_name.value" placeholder="All">
+        <h5>Service Name</h5>
+        <input class="form-control" v-model="filters.service_name.value" placeholder="All">
       </div>
-      <button v-on:click="reset">
+      <button class="btn green" v-on:click="reset">
         Reset Filters
       </button>
     </div>
@@ -84,5 +84,15 @@ export default {
 }
 .filter {
   margin: 1rem;
+}
+.green {
+  background-color: #42b983;
+  border-color: #42b983;
+  color: white;
+  &:hover {
+    background-color: darken(#42b983, 5%);
+    border-color: darken(#42b983, 5%);
+    color: white;
+  }
 }
 </style>
