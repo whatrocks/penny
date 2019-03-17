@@ -3,7 +3,8 @@ export default function(filters, data) {
     const currentFilter = filters[f];
     return (
       (currentFilter.type === "select" && currentFilter.value !== "All") ||
-      (currentFilter.type === "text" && currentFilter.value.length)
+      (currentFilter.type === "text" && currentFilter.value.length) ||
+      (currentFilter.type === "greater" && currentFilter.value.length)
     );
   });
   if (!activeFilters.length) {
@@ -14,9 +15,12 @@ export default function(filters, data) {
     filteredData = filteredData.filter(ping => {
       if (filters[filter].type === "select") {
         return ping[filter] === filters[filter].value;
-      } else {
-        // text filter
+      } else if (filters[filter].type === "text") {
         return ping[filter].includes(filters[filter].value);
+      } else {
+        // greater than filter
+        console.log("ping(filter)", ping[filter]);
+        return parseFloat(ping[filter]) >= parseFloat(filters[filter].value);
       }
     });
   });

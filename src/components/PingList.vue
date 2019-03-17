@@ -48,7 +48,7 @@ export default {
         });
       return {
         chart: {
-          type: "line"
+          type: "area"
         },
         title: {
           text: ""
@@ -57,9 +57,6 @@ export default {
           title: {
             text: "Latency"
           },
-          type: 'logarithmic',
-          // minorTickInterval: 0.1
-          // min: 0
         },
         credits: {
           enabled: false

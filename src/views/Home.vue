@@ -26,6 +26,14 @@
         <label>Service Name</label>
         <input class="form-control" v-model="filters.service_name.value" placeholder="All">
       </div>
+      <div class="form-group col">
+        <label>Latency Greater Than</label>
+        <input
+          class="form-control"
+          v-model="filters.latency_in_seconds.value"
+          placeholder="Seconds"
+        >
+      </div>
       <div class="col">
         <button class="btn green" v-on:click="reset">Reset Filters</button>
       </div>
@@ -60,6 +68,10 @@ export default {
         consumer_id: {
           type: "text",
           value: ""
+        },
+        latency_in_seconds: {
+          type: "greater",
+          value: ""
         }
       }
     };
@@ -70,6 +82,7 @@ export default {
       this.filters.service_name.value = "";
       this.filters.response_code.value = "All";
       this.filters.consumer_id.value = "";
+      this.filters.latency_in_seconds.value = "";
     }
   }
 };
@@ -81,7 +94,7 @@ export default {
 .filters {
   text-align: left;
   margin: 0 auto;
-  max-width: 960px;
+  max-width: 1060px;
 }
 .green {
   background-color: #42b983;
