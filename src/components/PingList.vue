@@ -29,6 +29,7 @@ import { Chart } from "highcharts-vue";
 import moment from "moment";
 import _ from "lodash";
 import multiFilter from "@/utils/multiFilter.js";
+import quantile from "@/utils/quantile.js";
 
 export default {
   name: "PingList",
@@ -50,7 +51,9 @@ export default {
     qpmChartOptions: function() {
       const filteredData = multiFilter(this.filters, data);
       const groups = _.groupBy(filteredData, function(ping) {
-        return moment(ping.request_time).startOf('minute').format("DD/MM/YYYY HH:mm");
+        return moment(ping.request_time)
+          .startOf("minute")
+          .format("DD/MM/YYYY HH:mm");
       });
       const count = [];
       _.forEach(groups, function(value, key) {
@@ -103,6 +106,8 @@ export default {
       });
       const average = [];
       const p90 = [];
+      const p75 = [];
+      const p50 = [];
       const min = [];
       const max = [];
       _.forEach(groups, function(value, key) {
@@ -118,7 +123,15 @@ export default {
         });
         p90.push({
           x: date,
-          y: Math.floor(sorted.length * 0.9) - 1
+          y: quantile(sorted, 0.9)
+        });
+        p75.push({
+          x: date,
+          y: quantile(sorted, 0.75)
+        });
+        p50.push({
+          x: date,
+          y: quantile(sorted, 0.5)
         });
         min.push({
           x: date,
@@ -129,6 +142,7 @@ export default {
           y: parseFloat(sorted[sorted.length - 1].latency_in_seconds)
         });
       });
+
       return {
         chart: {
           type: "line"
@@ -167,13 +181,21 @@ export default {
             data: average
           },
           {
+            name: "p50",
+            data: p50
+          },
+          {
+            name: "p75",
+            data: p75
+          },
+          {
+            name: "p90",
+            data: p90
+          },
+          {
             name: "Max",
             data: max
           }
-          // {
-          //   name: "p90",
-          //   data: p90
-          // }
         ]
       };
     }
