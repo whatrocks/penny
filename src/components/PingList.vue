@@ -10,9 +10,10 @@
         <highcharts :options="latencyChartOptions"></highcharts>
       </div>
     </div>
+    <br />
     <div class="row">
       <div class="col">
-        <h5>Service Names</h5>
+        <h5>Service Names by Highest Average Latency</h5>
         <ul class="list-group">
           <li
             class="list-group-item"
@@ -23,7 +24,8 @@
         </ul>
       </div>
       <div class="col">
-        <h5>Consumer IDs</h5>
+        <h5>Errors per Minute</h5>
+        <highcharts :options="epmChartOptions"></highcharts>
       </div>
     </div>
   </div>
@@ -121,6 +123,66 @@ export default {
           {
             name: "QPM",
             data: count
+          }
+        ]
+      };
+    },
+    epmChartOptions: function() {
+      const filteredData = multiFilter(this.filters, data);
+      const groups = _.groupBy(filteredData, function(ping) {
+        return moment(ping.request_time)
+          .startOf("minute")
+          .format("DD/MM/YYYY HH:mm");
+      });
+      const fourxx = [];
+      const fivexx = [];
+      _.forEach(groups, function(value, key) {
+        fourxx.push({
+          x: new Date(moment(key).valueOf()).getTime(),
+          y: _.countBy(value, p => p.response_code.startsWith('4')).true
+        });
+        fivexx.push({
+          x: new Date(moment(key).valueOf()).getTime(),
+          y: _.countBy(value, p => p.response_code.startsWith('5')).true
+        });
+      });
+      console.log(fourxx)
+      return {
+        chart: {
+          type: "area"
+        },
+        title: {
+          text: ""
+        },
+        yAxis: {
+          title: {
+            text: "QPM"
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        xAxis: {
+          type: "datetime",
+          dateTimeLabelFormats: {
+            millisecond: "%e %b - %H:%M",
+            second: "%e %b - %H:%M",
+            minute: "%e %b - %H:%M",
+            hour: "%e %b - %H:%M",
+            day: "%e %b - %H:%M"
+          },
+          title: {
+            text: ""
+          }
+        },
+        series: [
+          {
+            name: "4XX",
+            data: fourxx
+          },
+                    {
+            name: "5XX",
+            data: fivexx
           }
         ]
       };

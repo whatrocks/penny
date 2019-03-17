@@ -5,30 +5,14 @@ TODO:
 * [ ] create user journey docs
 * [ ] figure out charts
 * [ ] fix / write tests
-
+* [ ] append to url query string so it can be shared
 
  - error monitoring: which services have lots of 400/500
- - ranking services by latencies
 - drag to select the range
 - QPM / QPS, error rate, traffic pattern
 
-- convert latency to persecond metrics
-p75, p95, p90, p99
-p95 = 500ms  (95% of the requests with than minute or second is below or equal to 500s)
-
 - count 200s or 500s per minute
 https://docs.particular.net/samples/logging/prometheus-grafana/
-
-
-for given time range
-(sort all data points)
-avg = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-multiple length of data points by 90% (less or equal)
-p50% is same as median
-avg
-count
-
-
 
 
 NOTES:

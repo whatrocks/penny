@@ -80,7 +80,7 @@ export default {
     filterService: function(service) {
       this.filters.service_name.value = service;
     },
-    reset: function(event) {
+    reset: function() {
       this.filters.http_method.value = "All";
       this.filters.service_name.value = "";
       this.filters.response_code.value = "All";
