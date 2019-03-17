@@ -10,9 +10,9 @@ export default {
   data: function() {
     return {
       features: [
-          { key: 0, text: "I love you" }, 
-          { key: 1, text: "so Much!" },
-          { key: 2, text: "This is such a great feature iwhat do tyou !" }
+          { key: 0, text: "Latency metrics" }, 
+          { key: 1, text: "Multiple filters" },
+          { key: 2, text: "Service-level statistics" }
         ]
     };
   },

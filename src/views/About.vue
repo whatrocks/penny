@@ -1,20 +1,27 @@
 <template>
   <div class="about">
-    <h1>🕵️‍♀️ Penny</h1>
-    <p>Penny is your friendly neighborhood HTTP traffic inspector app.</p>
+    <p>🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.</p>
     <h3>Features</h3>
-    <FeatureList />
-    <p>Created by
-      <a href="https://www.charlieharrington.com">Charlie Harrington</a>.
+    <FeatureList/>
+    <br />
+    <p>
+      Penny is a
+      <a href="https://www.charlieharrington.com">Charlie Harrington</a>
+      creation.
     </p>
   </div>
 </template>
 <script>
-import FeatureList from "@/components/FeatureList.vue"
+import FeatureList from "@/components/FeatureList.vue";
 export default {
-  name: 'about',
+  name: "about",
   components: {
     FeatureList
   }
-}
+};
 </script>
+<style scoped lang="scss">
+.about {
+  margin-top: 2rem;
+}
+</style>

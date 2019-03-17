@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+      <router-link to="/">
+        <h4 class="logo">🕵️‍♀️ Penny</h4>
+      </router-link>
+      <router-link to="/about" class="nav-page">About</router-link>
+    </nav>
+    <router-view/>
   </div>
 </template>
 
@@ -16,14 +18,26 @@
   text-align: center;
   color: #2c3e50;
 }
+.logo {
+  padding: 0;
+  margin: 0;
+}
 #nav {
-  padding: 30px;
+  padding: 20px;
   a {
     font-weight: bold;
+    text-decoration: none;
     color: #2c3e50;
     &.router-link-exact-active {
       color: #42b983;
     }
+  }
+  h4 {
+    color: #2c3e50 !important;
+  }
+  .nav-page {
+    margin-left: 1rem;
+    margin-top: 0.1rem;
   }
 }
 </style>
