@@ -38,12 +38,15 @@
         <button class="btn green" v-on:click="reset">Reset Filters</button>
       </div>
     </div>
-    <PingList v-on:selectservice="filterService" v-bind:filters="filters"/>
+    <PingList v-on:selectservice="filterService" v-bind:filters="filters" v-bind:traffic="traffic"/>
   </div>
 </template>
 
 <script>
+import multiFilter from "@/utils/multiFilter.js";
 import PingList from "@/components/PingList.vue";
+import rawTraffic from "@/data/traffic.json";
+const slicedTraffic = rawTraffic.slice(0, 200);
 
 export default {
   name: "dashboard",
@@ -75,6 +78,11 @@ export default {
         }
       }
     };
+  },
+  computed: {
+    traffic: function() {
+      return multiFilter(this.filters, slicedTraffic);
+    }
   },
   methods: {
     filterService: function(service) {

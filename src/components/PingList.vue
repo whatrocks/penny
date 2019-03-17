@@ -34,16 +34,15 @@
   </div>
 </template>
 <script>
-import data from "@/data/sliced.json";
 import { Chart } from "highcharts-vue";
 import moment from "moment";
 import _ from "lodash";
-import multiFilter from "@/utils/multiFilter.js";
 import quantile from "@/utils/quantile.js";
 
 export default {
   name: "PingList",
   props: {
+    traffic: Array,
     filters: Object
   },
   components: {
@@ -54,16 +53,10 @@ export default {
       this.$emit("selectservice", value.name);
     }
   },
-  data: function() {
-    return {
-      pings: data
-    };
-  },
   computed: {
     filteredServices: function() {
-      const filteredData = multiFilter(this.filters, data);
       let filteredServices = [];
-      const services = _.groupBy(filteredData, function(ping) {
+      const services = _.groupBy(this.traffic, function(ping) {
         return ping.service_name;
       });
       _.forEach(services, (value, key) => {
@@ -83,8 +76,7 @@ export default {
       return filteredServices.slice(0,10);
     },
     qpmChartOptions: function() {
-      const filteredData = multiFilter(this.filters, data);
-      const groups = _.groupBy(filteredData, function(ping) {
+      const groups = _.groupBy(this.traffic, function(ping) {
         return moment(ping.request_time)
           .startOf("minute")
           .format("DD/MM/YYYY HH:mm");
@@ -133,8 +125,7 @@ export default {
       };
     },
     epmChartOptions: function() {
-      const filteredData = multiFilter(this.filters, data);
-      const groups = _.groupBy(filteredData, function(ping) {
+      const groups = _.groupBy(this.traffic, function(ping) {
         return moment(ping.request_time)
           .startOf("minute")
           .format("DD/MM/YYYY HH:mm");
@@ -192,8 +183,7 @@ export default {
       };
     },
     latencyChartOptions: function() {
-      const filteredData = multiFilter(this.filters, data);
-      const groups = _.groupBy(filteredData, function(ping) {
+      const groups = _.groupBy(this.traffic, function(ping) {
         return moment(ping.request_time).format("DD/MM/YYYY HH:mm");
       });
       const average = [];

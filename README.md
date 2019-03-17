@@ -5,6 +5,7 @@ TODO:
 * [ ] fix / write tests
 * [ ] append to url query string so it can be shared
 * [ ] drag to select the range
+* [ ] improve hovers
 
 https://docs.particular.net/samples/logging/prometheus-grafana/
 
