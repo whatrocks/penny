@@ -1,8 +1,11 @@
 <template>
   <div class="about">
-    <p>🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.</p>
-    <h3>Features</h3>
+    <h5>🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.</h5>
+    <br />
+    <h4>Features</h4>
     <FeatureList/>
+    <br />
+    <p>⚡⚡⚡</p>
     <br />
     <p>
       Penny is a

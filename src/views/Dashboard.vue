@@ -54,7 +54,7 @@ import router from "@/router";
 import multiFilter from "@/utils/multiFilter.js";
 import TrafficOverview from "@/components/TrafficOverview.vue";
 import rawTraffic from "@/data/traffic.json";
-const slicedTraffic = rawTraffic.slice(0, 1000);
+const slicedTraffic = rawTraffic.slice(0, 1470);
 export default {
   name: "dashboard",
   components: {
