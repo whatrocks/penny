@@ -1,17 +1,11 @@
 # penny
 
 TODO:
-* [ ] remove flux since not needed
 * [ ] create user journey docs
-* [ ] figure out charts
 * [ ] fix / write tests
 * [ ] append to url query string so it can be shared
+* [ ] drag to select the range
 
- - error monitoring: which services have lots of 400/500
-- drag to select the range
-- QPM / QPS, error rate, traffic pattern
-
-- count 200s or 500s per minute
 https://docs.particular.net/samples/logging/prometheus-grafana/
 
 

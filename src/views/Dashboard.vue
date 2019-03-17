@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="dashboard">
     <div class="filters form-row">
       <div class="form-group col">
         <label>HTTP Method</label>
@@ -46,7 +46,7 @@
 import PingList from "@/components/PingList.vue";
 
 export default {
-  name: "home",
+  name: "dashboard",
   components: {
     PingList
   },
@@ -91,7 +91,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.home {
+.dashboard {
   margin: 1rem;
 }
 .filters {

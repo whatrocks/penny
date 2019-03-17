@@ -10,22 +10,25 @@
         <highcharts :options="latencyChartOptions"></highcharts>
       </div>
     </div>
-    <br />
+    <br>
     <div class="row">
       <div class="col">
-        <h5>Service Names by Highest Average Latency</h5>
+        <h5>Errors per Minute</h5>
+        <highcharts :options="epmChartOptions"></highcharts>
+      </div>
+      <div class="col">
+        <h5>Average Latency by Service (Top 10)</h5>
         <ul class="list-group">
           <li
             class="list-group-item"
             v-for="service in filteredServices"
             @click="selectService(service)"
             :key="service.id"
-          ><b>{{service.name}}</b>: {{service.avg.toFixed(4)}}</li>
+          >
+            <b>{{service.name}}</b>
+            : {{service.avg.toFixed(4)}}
+          </li>
         </ul>
-      </div>
-      <div class="col">
-        <h5>Errors per Minute</h5>
-        <highcharts :options="epmChartOptions"></highcharts>
       </div>
     </div>
   </div>
@@ -48,7 +51,7 @@ export default {
   },
   methods: {
     selectService: function(value) {
-      this.$emit('selectservice', value.name)
+      this.$emit("selectservice", value.name);
     }
   },
   data: function() {
@@ -64,18 +67,20 @@ export default {
         return ping.service_name;
       });
       _.forEach(services, (value, key) => {
-        let avgLatency = _.mean(value.map(p => parseFloat(p.latency_in_seconds)))
+        let avgLatency = _.mean(
+          value.map(p => parseFloat(p.latency_in_seconds))
+        );
         filteredServices.push({
           name: key,
           avg: avgLatency
-        })
-      })
-      filteredServices = filteredServices.sort((a,b) => {
+        });
+      });
+      filteredServices = filteredServices.sort((a, b) => {
         if (a.avg === b.avg) return 0;
-        if (a.avg < b.avg) return 1
+        if (a.avg < b.avg) return 1;
         return -1;
-      })
-      return filteredServices;
+      });
+      return filteredServices.slice(0,10);
     },
     qpmChartOptions: function() {
       const filteredData = multiFilter(this.filters, data);
@@ -139,14 +144,13 @@ export default {
       _.forEach(groups, function(value, key) {
         fourxx.push({
           x: new Date(moment(key).valueOf()).getTime(),
-          y: _.countBy(value, p => p.response_code.startsWith('4')).true
+          y: _.countBy(value, p => p.response_code.startsWith("4")).true
         });
         fivexx.push({
           x: new Date(moment(key).valueOf()).getTime(),
-          y: _.countBy(value, p => p.response_code.startsWith('5')).true
+          y: _.countBy(value, p => p.response_code.startsWith("5")).true
         });
       });
-      console.log(fourxx)
       return {
         chart: {
           type: "area"
@@ -180,7 +184,7 @@ export default {
             name: "4XX",
             data: fourxx
           },
-                    {
+          {
             name: "5XX",
             data: fivexx
           }
@@ -191,7 +195,6 @@ export default {
       const filteredData = multiFilter(this.filters, data);
       const groups = _.groupBy(filteredData, function(ping) {
         return moment(ping.request_time).format("DD/MM/YYYY HH:mm");
-        // return moment(ping.request_time);
       });
       const average = [];
       const p90 = [];
