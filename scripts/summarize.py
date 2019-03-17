@@ -6,7 +6,6 @@ with open('traffic.csv') as csv_file:
     # skip header
     next(csv_reader)
 
-    # NOTE: This was for inspecting the data!
     service_names = set()
     consumers = set()
     status_codes = set()

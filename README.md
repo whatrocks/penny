@@ -1,22 +1,22 @@
-# penny
+# 🕵️‍♀️ penny
 
-TODO:
-* [ ] create user journey docs
-* [ ] fix / write tests
-* [x] append to url query string so it can be shared
-* [x] drag to select the range
-* [ ] improve hovers
-* [x] support more data
+🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.
 
-https://docs.particular.net/samples/logging/prometheus-grafana/
+## High-level Features
 
+* Comprehensive dashboard with multiple filters
+* Zoomable metrics to help triage traffic irregularities
+* Sharable URLs to get your team on the same page
+* Service-level statistics to find bottlenecks
 
-NOTES:
+### Detailed Features
 
-converted to json
-```bash
-../node_modules/csvtojson/bin/csvtojson traffic.csv > converted.json
-```
+#### Dashboard Components
+
+* **Queries per Minute**: Track network throughput over time
+* **Latency Statistics per Minute**: Statistical overview of latency
+* **Errors per Minute**: View spikes in 4xx and 5xx errors
+* **Average Latency by Service**: Identify potentially overloaded services
 
 ## Project setup
 ```
@@ -42,3 +42,17 @@ npm run lint
 ```
 npm run test:unit
 ```
+
+### Data exploration utilities
+
+Convert CSV to JSON:
+
+```
+../node_modules/csvtojson/bin/csvtojson traffic.csv > converted.json
+```
+
+Explore the data (group and view by parameter):
+```
+python ./scripts/summarize.py
+```
+
