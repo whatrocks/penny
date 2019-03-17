@@ -2,6 +2,8 @@
 
 🕵️‍♀️ Penny is your friendly neighborhood HTTP traffic inspector app.
 
+![Penny screenshot](./img/penny.png)
+
 ## Features
 
 * Comprehensive dashboard with multiple filters
